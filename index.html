@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Sanu ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  overflow:hidden;
+}
+
+.entry{
+  text-align:center;
+  background:white;
+  padding:60px;
+  border-radius:25px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.2);
+  max-width:500px;
+}
+
+.entry h1{color:#ff4d6d;margin-bottom:20px;}
+
+.openBtn{
+  padding:15px 35px;
+  border:none;
+  border-radius:40px;
+  font-size:18px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.openBtn:hover{transform:scale(1.1);} 
+
+.container{
+  display:none;
+  text-align:center;
+  background:white;
+  padding:50px;
+  border-radius:25px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.2);
+  width:90%;
+  max-width:650px;
+}
+
+.heart{font-size:65px;animation:beat 1s infinite;}
+
+@keyframes beat{
+0%{transform:scale(1);} 
+50%{transform:scale(1.25);} 
+100%{transform:scale(1);} 
+}
+
+#typing{
+font-size:1.35rem;
+color:#444;
+min-height:120px;
+margin-top:20px;
+}
+
+/* PHOTO REVEAL */
+.photo{
+  width:260px;
+  border-radius:20px;
+  margin-top:25px;
+  display:none;
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+  transform:scale(0.8);
+  opacity:0;
+  transition:all .8s ease;
+}
+
+.photo.show{
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  transform:scale(1);
+  opacity:1;
+}
+
+h1{
+font-size:2.2rem;
+margin-top:20px;
+color:#ff4d6d;
+display:none;
+}
+
+.buttons{
+margin-top:40px;
+position:relative;
+height:200px;
+display:none;
+}
+
+button{
+padding:14px 32px;
+font-size:18px;
+border:none;
+border-radius:40px;
+cursor:pointer;
+position:absolute;
+transition:.25s;
+white-space:nowrap;
+}
+
+#yes{background:#ff4d6d;color:white;left:20%;}
+#yes:hover{transform:scale(1.15);} 
+
+#no{background:#eee;left:60%;}
+
+.message{
+font-size:2rem;
+color:#ff4d6d;
+display:none;
+margin-top:25px;
+font-weight:600;
+}
+
+.confetti{
+position:absolute;
+width:10px;
+height:10px;
+top:-10px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{transform:translateY(120vh) rotate(720deg);opacity:0;}
+}
+
+</style>
+</head>
+<body>
+
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-background-112191.mp3" type="audio/mpeg">
+</audio>
+
+<div class="entry" id="entry">
+<h1>I have a question for you ❤️</h1>
+<p style="margin-bottom:30px;color:#555;">Press the button below... it's something special ✨</p>
+<button class="openBtn" id="openBtn">Open 💌</button>
+</div>
+
+<div class="container" id="main">
+<div class="heart">❤️</div>
+<div id="typing"></div>
+
+<!-- ADD YOUR PHOTO FILE NAME BELOW -->
+<img src="photo.jpg" id="couplePhoto" class="photo" alt="memory">
+
+<h1 id="question">Will You Be My Valentine, Sanu? 💖</h1>
+
+<div class="buttons" id="btns">
+<button id="yes">Yes 😍</button>
+<button id="no">No 😢</button>
+</div>
+
+<div class="message" id="message">
+YOU SAID YES!!! 😭💘<br>Best day of my life.
+</div>
+</div>
+
+<script>
+
+const openBtn=document.getElementById('openBtn');
+openBtn.addEventListener('click',startExperience);
+
+function startExperience(){
+ document.getElementById('entry').style.display='none';
+ document.getElementById('main').style.display='block';
+ document.getElementById('music').play().catch(()=>{});
+ setTimeout(type,800);
+}
+
+const text="It all started with a simple hello... and somehow you became my favorite notification. Every moment with you feels softer, brighter, happier. Sanu, you are not just someone I like — you are someone my heart feels peaceful with. When I imagine my happiest moments, you are always there. And honestly… this photo right here is one of my favorites. And today... I want to ask you something my heart has been waiting to say.";
+
+let index=0;
+function type(){
+ if(index<text.length){
+  document.getElementById('typing').innerHTML+=text.charAt(index);
+  index++;
+  setTimeout(type,55);
+ }else{
+  revealPhoto();
+ }
+}
+
+function revealPhoto(){
+ const photo=document.getElementById('couplePhoto');
+ photo.classList.add('show');
+
+ setTimeout(()=>{
+   document.getElementById('question').style.display='block';
+   document.getElementById('btns').style.display='block';
+ },1200);
+}
+
+const noBtn=document.getElementById('no');
+const yesBtn=document.getElementById('yes');
+const btnContainer=document.getElementById('btns');
+
+const sadTexts=[
+"No 😢","Are you sure? 🥺","Please don't do this 💔","I'll be very sad 😭","Don't break my heart 😞","Give me a chance 😖","Pretty please? 🥹","Last chance... 😩","Okay this is hurting now 😭💔"
+];
+
+let sadIndex=0;
+
+noBtn.addEventListener('click',()=>{
+
+const btnWidth=noBtn.offsetWidth;
+const btnHeight=noBtn.offsetHeight;
+
+const maxX=btnContainer.clientWidth-btnWidth;
+const maxY=btnContainer.clientHeight-btnHeight;
+
+const x=Math.random()*maxX;
+const y=Math.random()*maxY;
+
+noBtn.style.left=x+'px';
+noBtn.style.top=y+'px';
+
+if(sadIndex<sadTexts.length-1){
+sadIndex++;
+noBtn.innerText=sadTexts[sadIndex];
+}
+
+let scale=yesBtn.dataset.scale?parseFloat(yesBtn.dataset.scale):1;
+scale+=0.15;
+yesBtn.dataset.scale=scale;
+yesBtn.style.transform=`scale(${scale})`;
+});
+
+yesBtn.addEventListener('click',()=>{
+btnContainer.style.display='none';
+document.getElementById('question').style.display='none';
+document.getElementById('message').style.display='block';
+launchConfetti();
+});
+
+function launchConfetti(){
+for(let i=0;i<120;i++){
+const conf=document.createElement('div');
+conf.classList.add('confetti');
+conf.style.left=Math.random()*100+'vw';
+conf.style.background=`hsl(${Math.random()*360},100%,70%)`;
+conf.style.animationDuration=(Math.random()*3+2)+'s';
+document.body.appendChild(conf);
+setTimeout(()=>conf.remove(),5000);
+}
+}
+
+setInterval(()=>{
+const heart=document.createElement('div');
+heart.innerHTML='💗';
+heart.style.position='absolute';
+heart.style.left=Math.random()*100+'vw';
+heart.style.top='100vh';
+heart.style.fontSize=(Math.random()*20+12)+'px';
+heart.style.animation='float 6s linear';
+
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},400);
+
+const style=document.createElement('style');
+style.innerHTML=`
+@keyframes float{
+from{transform:translateY(0);opacity:1;}
+to{transform:translateY(-120vh);opacity:0;}
+}`;
+document.head.appendChild(style);
+
+</script>
+</body>
+</html>
